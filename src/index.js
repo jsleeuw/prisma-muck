@@ -1,5 +1,3 @@
-// const express = require('express')
-// const bodyParser = require('body-parser')
 const fastify = require("fastify")({ logger: true })
 const { PrismaClient } = require("@prisma/client")
 const prisma = new PrismaClient()
@@ -54,7 +52,7 @@ fastify.get(`/api/seed`, async (req, res) => {
   }
 })
 
-fastify.listen(process.env.PORT || 3000, (err) => {
+fastify.listen(process.env.PORT || 3000, process.env.HOST || "::", (err) => {
   if (err) throw err
   console.log(`server listening on ${fastify.server.address().port}`)
 })
