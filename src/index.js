@@ -3,7 +3,7 @@ const { PrismaClient } = require("@prisma/client")
 const prisma = new PrismaClient()
 
 fastify.get(`/api`, async () => {
-  return { up: true, prop:"new prop" }
+  return { up: true, prop:"new prop again" }
 })
 
 fastify.get(`/api/seed`, async (req, res) => {
