@@ -52,22 +52,22 @@ fastify.get(`/api/seed`, async (req, res) => {
   }
 })
 
-fastify.get(`/api/post/:id`, async (req, res) => {
+fastify.get(`/api/post/:id`, async (req) => {
   const { id } = req.params
   const post = await prisma.post.findUnique({
     where: {
       id: parseInt(id),
     },
   })
-  res.json(post)
+  return post
 })
 
-fastify.get("/api/feed", async (req, res) => {
+fastify.get("/api/feed", async () => {
   const posts = await prisma.post.findMany({
     where: { published: true },
     include: { author: true },
   })
-  res.json(posts)
+  return posts
 })
 
 fastify.listen(process.env.PORT || 3000, process.env.HOST || "::", (err) => {
