@@ -47,7 +47,7 @@ jobs:
             }
       - name: Echo environment
         # run: echo ${{ env.project_id }}
-        run: echo ${{ github.base_ref }}
+        run: echo ${{ github.ref }}
 
         # - name: Checkout code
         #   uses: actions/checkout@v2
