@@ -54,11 +54,7 @@ fastify.get(`/api/seed`, async (req, res) => {
 
 fastify.get(`/api/post/:id`, async (req) => {
   const { id } = req.params
-  const post = await prisma.post.findUnique({
-    where: {
-      id: parseInt(id),
-    },
-  })
+  const post = await prisma.post.findUnique({ where: { id: parseInt(id) } })
   return post
 })
 
