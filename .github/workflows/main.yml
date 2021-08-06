@@ -47,6 +47,7 @@ jobs:
             }
       - name: Echo environment
         run: echo ${{ env.project_id }}
+
         # run: echo ${{ github.ref }}
 
         # - name: Checkout code
