@@ -1,6 +1,7 @@
 name: deployments
 
-push:
+on:
+  push:
     branches:
       - main
       - dell-staging
@@ -21,10 +22,10 @@ jobs:
     steps:
       - name: Get Vercel project_id
         id: get_project_id
-        run: echo "::set-output name=id::$(github.ref)" 
-      
+        run: echo "::set-output name=id::$(github.ref)"
+
       - name: Output project_id
-        run: echo ${{ steps.get_project_id.outputs.id }} 
+        run: echo ${{ steps.get_project_id.outputs.id }}
 
       # - name: Checkout code
       #   uses: actions/checkout@v2
@@ -38,6 +39,3 @@ jobs:
       #     scope: ${{ secrets.VERCEL_TEAM_ID }}
       #     github-token: ${{ secrets.GITHUB_TOKEN }}
       #     vercel-args: "--prod"
-
-
-
