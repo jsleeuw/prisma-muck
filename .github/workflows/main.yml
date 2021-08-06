@@ -9,10 +9,12 @@
 
 name: deployments
 
-push:
+on:
+  push:
     branches:
       - main
       - dell-staging
+
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -29,8 +31,8 @@ jobs:
 
     steps:
       - name: output branch
-        run: echo "Testing ${{ github.ref }}" 
-          
+        run: echo "Testing ${{ github.ref }}"
+
       # - name: Checkout code
       #   uses: actions/checkout@v2
 
@@ -43,6 +45,3 @@ jobs:
       #     scope: ${{ secrets.VERCEL_TEAM_ID }}
       #     github-token: ${{ secrets.GITHUB_TOKEN }}
       #     vercel-args: "--prod"
-
-
-
