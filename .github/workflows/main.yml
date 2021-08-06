@@ -32,13 +32,13 @@ jobs:
     steps:
       - uses: kanga333/variable-mapper@master
         with:
-          key: "${{github.base_ref}}"
+          key: "${{github.ref}}"
           map: |
             {
-              "main": {
+              "refs/heads/main": {
                 "project_id": "main_project_id"
               },
-              "dell-staging": {
+              "refs/heads/dell-staging": {
                 "project_id": "dell_staging_project_id"
               },
               ".*": {
@@ -46,8 +46,8 @@ jobs:
               }
             }
       - name: Echo environment
-        # run: echo ${{ env.project_id }}
-        run: echo ${{ github.ref }}
+        run: echo ${{ env.project_id }}
+        # run: echo ${{ github.ref }}
 
         # - name: Checkout code
         #   uses: actions/checkout@v2
