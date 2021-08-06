@@ -30,20 +30,33 @@ jobs:
     timeout-minutes: 15
 
     steps:
-      - name: output project id
+      - uses: kanga333/variable-mapper@master
+        with:
+          key: "${{github.base_ref}}"
+          map: |
+            {
+              "main": {
+                "project_id": "main_project_id"
+              },
+              "dell-staging": {
+                "project_id": "dell_staging_project_id"
+              },
+              ".*": {
+                "project_id": ""
+              }
+            }
+      - name: Echo environment
+        run: echo ${{ env.project_id }}
 
-        # run: echo "${{ github.ref }}"
-        run: echo "${{ fromJson('{ "refs/heads/main": "i386", "refs/heads/dell-staging": "x86_64" }')[${{ github.ref }}] }}"
-  
-      # - name: Checkout code
-      #   uses: actions/checkout@v2
+        # - name: Checkout code
+        #   uses: actions/checkout@v2
 
-      # - name: Deploy frontend to Vercel staging instance
-      #   uses: amondnet/vercel-action@v20
-      #   with:
-      #     vercel-token: ${{ secrets.VERCEL_TOKEN }}
-      #     vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-      #     vercel-project-id: ${{ matrix.proj_id }}
-      #     scope: ${{ secrets.VERCEL_TEAM_ID }}
-      #     github-token: ${{ secrets.GITHUB_TOKEN }}
-      #     vercel-args: "--prod"
+        # - name: Deploy frontend to Vercel staging instance
+        #   uses: amondnet/vercel-action@v20
+        #   with:
+        #     vercel-token: ${{ secrets.VERCEL_TOKEN }}
+        #     vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+        #     vercel-project-id: ${{ matrix.proj_id }}
+        #     scope: ${{ secrets.VERCEL_TEAM_ID }}
+        #     github-token: ${{ secrets.GITHUB_TOKEN }}
+        #     vercel-args: "--prod"
