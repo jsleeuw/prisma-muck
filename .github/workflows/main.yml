@@ -1,20 +1,9 @@
-# CI workflow to automate the following:
-# - run and report on tests (in a way that provides visibility to the test results in a PR, etc.)
-# - run and report on code linting
-# - deploy code pushed to main branch to staging environments hosted on Vercel and Heroku
-# - deploy 'preview' urls for PRs
-#
-# Given we will stick with a monorepo for now, this workflow should conditionally run frontend
-# and backend jobs based on the files that are been modified
-
 name: deployments
 
-on:
-  push:
+push:
     branches:
       - main
       - dell-staging
-
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -30,8 +19,12 @@ jobs:
     timeout-minutes: 15
 
     steps:
-      - name: output branch
-        run: echo "Testing ${{ github.ref }}"
+      - name: Get Vercel project_id
+        id: get_project_id
+        run: echo "::set-output name=id::$(github.ref)" 
+      
+      - name: Output project_id
+        run: echo ${{ steps.get_project_id.outputs.id }} 
 
       # - name: Checkout code
       #   uses: actions/checkout@v2
@@ -45,3 +38,6 @@ jobs:
       #     scope: ${{ secrets.VERCEL_TEAM_ID }}
       #     github-token: ${{ secrets.GITHUB_TOKEN }}
       #     vercel-args: "--prod"
+
+
+
